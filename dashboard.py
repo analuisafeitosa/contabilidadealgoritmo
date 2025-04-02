@@ -56,7 +56,11 @@ app.layout = html.Div([
     # Importando a fonte do Google Fonts
     html.Link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'),
     
-    html.H1("BeeFin", style={'textAlign': 'center', 'fontFamily': 'Roboto'}),
+    # Título "BeeFin" com a imagem da abelhinha ao lado
+    html.H1([
+        html.Img(src='/assets/honeybee.png', style={'height': '40px', 'width': '40px', 'marginRight': '10px'}),
+        "BeeFin"
+    ], style={'textAlign': 'center', 'fontFamily': 'Roboto'}),
     
     # Exibir o total de Receita e Despesa no topo
     html.Div([

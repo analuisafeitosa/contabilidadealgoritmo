@@ -53,50 +53,59 @@ app = dash.Dash(__name__)
 
 # Layout do Dash com três gráficos (Receitas, Despesas e Lucro)
 app.layout = html.Div([
+
     # Importando a fonte do Google Fonts
     html.Link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'),
-    
+
     # Título "BeeFin" com a imagem da abelhinha ao lado
     html.H1([
         html.Img(src='/assets/honeybee.png', style={'height': '40px', 'width': '40px', 'marginRight': '10px'}),
         "BeeFin"
-    ], style={'textAlign': 'center', 'fontFamily': 'Roboto'}),
-    
+    ], style={'textAlign': 'center', 'fontFamily': 'Roboto', 'color': 'white'}),
+
     # Exibir o total de Receita e Despesa no topo
     html.Div([
         html.Div([
             html.H4(f"Total Receita: R$ {df['Entrada'].sum():,.2f}", style={'textAlign': 'center', 'fontFamily': 'Roboto'}),
-        ], style={'width': '45%', 'display': 'inline-block', 'padding': '10px', 'backgroundColor': '#4CAF50', 'color': 'white'}),
+        ], style={'width': '45%', 'display': 'inline-block', 'padding': '10px', 'backgroundColor': '#4CAF50', 'color': 'white', 'borderRadius': '10px'}),
         
         html.Div([
             html.H4(f"Total Despesa: R$ {df['Saida'].sum():,.2f}", style={'textAlign': 'center', 'fontFamily': 'Roboto'}),
-        ], style={'width': '45%', 'display': 'inline-block', 'padding': '10px', 'backgroundColor': '#f44336', 'color': 'white'}),
+        ], style={'width': '45%', 'display': 'inline-block', 'padding': '10px', 'backgroundColor': '#f44336', 'color': 'white', 'borderRadius': '10px'}),
     ], style={'display': 'flex', 'justifyContent': 'space-between', 'margin': '20px'}),
-    
-    # Gráfico de Receitas (Entrada)
+
+    # Gráficos com bordas arredondadas
     html.Div([
+
         dcc.Graph(
             id='grafico-entrada',
-            figure=fig_entrada
+            figure=fig_entrada,
+            style={'borderRadius': '10px'}
         )
-    ], style={'padding': '20px'}),
-    
-    # Gráfico de Despesas (Saída)
+
+    ], style={'padding': '20px', 'backgroundColor': '#2E2E2E', 'borderRadius': '10px'}),
+
     html.Div([
+
         dcc.Graph(
             id='grafico-saida',
-            figure=fig_saida
+            figure=fig_saida,
+            style={'borderRadius': '10px'}
         )
-    ], style={'padding': '20px'}),
-    
-    # Gráfico de Lucro (Mensal)
+
+    ], style={'padding': '20px', 'backgroundColor': '#2E2E2E', 'borderRadius': '10px'}),
+
     html.Div([
+
         dcc.Graph(
             id='grafico-lucro',
-            figure=fig_lucro
+            figure=fig_lucro,
+            style={'borderRadius': '10px'}
         )
-    ], style={'padding': '20px'})
-])
+
+    ], style={'padding': '20px', 'backgroundColor': '#2E2E2E', 'borderRadius': '10px'})
+
+], style={'backgroundColor': '#2E2E2E', 'padding': '20px'})
 
 # Rodar o servidor Dash
 if __name__ == '__main__':

@@ -19,6 +19,10 @@ df['Data'] = pd.to_datetime(df['Data'], format='%m/%d/%Y')
 # Extrair o mês e o ano da coluna 'Data' e converter para string
 df['Ano-Mês'] = df['Data'].dt.to_period('M').astype(str)
 
+# Calcular o total de Receita (Entrada) e Despesa (Saída)
+total_receita = df['Entrada'].sum()
+total_despesa = df['Saida'].sum()
+
 # Criar o gráfico de "Entrada" (Receita), agrupado por mês
 fig_entrada = px.bar(df, x='Ano-Mês', y='Entrada', 
                      title='Receitas (Entrada) por Mês',
@@ -36,9 +40,23 @@ fig_saida = px.bar(df, x='Ano-Mês', y='Saida',
 # Criar o aplicativo Dash
 app = dash.Dash(__name__)
 
-# Layout do Dash com dois gráficos
+# Definir o layout com a fonte moderna e gráficos
 app.layout = html.Div([
-    html.H1("Dashboard de Movimentação Bancária", style={'textAlign': 'center'}),
+    # Importando a fonte do Google Fonts
+    html.Link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'),
+    
+    html.H1("Dashboard de Movimentação Bancária", style={'textAlign': 'center', 'fontFamily': 'Roboto'}),
+    
+    # Exibir o total de Receita e Despesa no topo
+    html.Div([
+        html.Div([
+            html.H4(f"Total Receita: R$ {total_receita:,.2f}", style={'textAlign': 'center', 'fontFamily': 'Roboto'}),
+        ], style={'width': '45%', 'display': 'inline-block', 'padding': '10px', 'backgroundColor': '#4CAF50', 'color': 'white'}),
+        
+        html.Div([
+            html.H4(f"Total Despesa: R$ {total_despesa:,.2f}", style={'textAlign': 'center', 'fontFamily': 'Roboto'}),
+        ], style={'width': '45%', 'display': 'inline-block', 'padding': '10px', 'backgroundColor': '#f44336', 'color': 'white'}),
+    ], style={'display': 'flex', 'justifyContent': 'space-between', 'margin': '20px'}),
     
     # Gráfico de Receitas (Entrada)
     html.Div([
